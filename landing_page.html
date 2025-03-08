@@ -1254,18 +1254,255 @@
             align-items: center;
         }
 
-        .debug-toggle {
+        .timer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .timer-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            font-family: monospace;
+            color: var(--text-color);
+            background: var(--bg-color);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: color 0.3s ease;
+        }
+
+        .timer-display.negative {
+            color: #f44336;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .timer-button {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        #revision-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #revision-btn:hover {
+            background-color: #45a049;
+        }
+
+        #stop-revision-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #stop-revision-btn:hover {
+            background-color: #da190b;
+        }
+
+        .timer-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Add this to your existing styles */
+        .timer-debug {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .timer-debug input {
+            margin-right: 0.5rem;
+        }
+
+        /* Add timer config styles */
+        .timer-config {
+            margin-left: 0.5rem;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.25rem;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .timer-config:hover {
+            opacity: 1;
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-overlay.active {
+            display: flex;
+        }
+
+        .popup-content {
+            background: var(--bg-color);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .popup-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        .popup-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .popup-close:hover {
+            opacity: 1;
+        }
+
+        .popup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .popup-form label {
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+
+        .popup-form input {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .popup-form input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+        }
+
+        .popup-form button {
+            padding: 0.75rem;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .popup-form button:hover {
+            background: #45a049;
+        }
+
+        /* Update existing popup styles */
+        .popup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .config-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .checkbox-label {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.9rem;
             cursor: pointer;
         }
 
-        .debug-toggle input {
+        .checkbox-label input[type="checkbox"] {
             width: 16px;
             height: 16px;
             cursor: pointer;
+        }
+
+        .debug-settings {
+            padding-left: 1.5rem;
+            border-left: 2px solid var(--border-color);
+            margin-top: -1rem;
+            opacity: 0.7;
+        }
+
+        .debug-settings.active {
+            opacity: 1;
+        }
+
+        .config-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .danger-button {
+            background-color: #f44336;
+            color: white;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background 0.2s;
+            width: 100%;
+        }
+
+        .danger-button:hover {
+            background-color: #d32f2f;
+        }
+
+        .save-button {
+            flex: 1;
         }
     </style>
 </head>
@@ -1346,14 +1583,28 @@
                     <div class="game-container">
                         <div class="game-header">
                             <div class="score">Score: <span id="game-score">0</span></div>
-                            <div class="game-controls">
-                                <label class="debug-toggle">
-                                    <input type="checkbox" id="debug-mode" onchange="toggleDebugMode()">
-                                    Show Hitboxes
-                                </label>
-                            </div>
+                            <div class="game-controls"></div>
                         </div>
                         <canvas id="gameCanvas"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header" onclick="toggleSection(this)">
+                    <h2 class="section-title">Timer</h2>
+                    <span class="section-toggle">▼</span>
+                </div>
+                <div class="section-content">
+                    <div class="timer-container">
+                        <div class="timer-display">
+                            <span id="timer-hours">00</span>:<span id="timer-minutes">00</span>:<span id="timer-seconds">00</span>
+                        </div>
+                        <div class="timer-controls">
+                            <button id="revision-btn" class="timer-button" onclick="startRevision()">Révision</button>
+                            <button id="stop-revision-btn" class="timer-button" onclick="stopRevision()" disabled>Stop Révision</button>
+                            <button class="timer-config" onclick="showTimerConfig()" title="Configure Timer">⚙️</button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -1392,6 +1643,25 @@
 
     <div class="theme-toggle">
         <div class="toggle-switch" id="theme-toggle"></div>
+    </div>
+
+    <!-- Add popup HTML at the end of body but before scripts -->
+    <div class="popup-overlay" id="timer-config-popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3 class="popup-title">Timer Configuration</h3>
+                <button class="popup-close" onclick="hideTimerConfig()">×</button>
+            </div>
+            <div class="popup-form">
+                <div class="config-group">
+                    <label for="daily-minutes">Minutes required per day:</label>
+                    <input type="number" id="daily-minutes" min="1" max="1440" required>
+                </div>
+                <div class="config-actions">
+                    <button type="button" class="danger-button" onclick="resetTimer()">Reset Timer to 0</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -2397,23 +2667,6 @@
                 this.ctx.lineTo(this.x, this.y + this.radius + 20);
                 this.ctx.strokeStyle = this.color;
                 this.ctx.stroke();
-
-                // Draw hitbox in debug mode
-                if (document.getElementById('debug-mode').checked) {
-                    this.ctx.beginPath();
-                    this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                    this.ctx.strokeStyle = 'red';
-                    this.ctx.lineWidth = 2;
-                    this.ctx.stroke();
-                    
-                    // Draw center point
-                    this.ctx.beginPath();
-                    this.ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-                    this.ctx.fillStyle = 'red';
-                    this.ctx.fill();
-                    
-                    this.ctx.lineWidth = 1;
-                }
             }
 
             update() {
@@ -2477,6 +2730,208 @@
             if (game) {
                 game.resizeCanvas();
             }
+        }
+
+        // Timer functionality
+        let timerSeconds = 30 * 60; // 30 minutes in seconds
+        let isRevisionMode = false;
+        let timerInterval;
+        let DAILY_MINUTES = 30; // Default 30 minutes
+        let DAILY_DECREMENT = (DAILY_MINUTES * 60) / (24 * 60 * 60); // Convert to per-second rate
+        let saveTimeout = null;
+
+        function showTimerConfig() {
+            const popup = document.getElementById('timer-config-popup');
+            const dailyMinutesInput = document.getElementById('daily-minutes');
+            const savedDailyMinutes = localStorage.getItem('timer-daily-minutes');
+            dailyMinutesInput.value = savedDailyMinutes || DAILY_MINUTES;
+            popup.classList.add('active');
+        }
+
+        function hideTimerConfig() {
+            const popup = document.getElementById('timer-config-popup');
+            popup.classList.remove('active');
+            
+            // Clear any pending debounced save
+            if (saveTimeout) {
+                clearTimeout(saveTimeout);
+            }
+            
+            // Save immediately when closing
+            const newMinutes = document.getElementById('daily-minutes').value;
+            if (newMinutes && !isNaN(newMinutes)) {
+                DAILY_MINUTES = newMinutes;
+                DAILY_DECREMENT = (DAILY_MINUTES * 60) / (24 * 60 * 60);
+                localStorage.setItem('timer-daily-minutes', newMinutes);
+                
+                // Restart timer with new settings if not in revision mode
+                if (!isRevisionMode) {
+                    stopRevision();
+                }
+            }
+        }
+
+        // Update debouncedSave function as well
+        function debouncedSave() {
+            if (saveTimeout) {
+                clearTimeout(saveTimeout);
+            }
+            saveTimeout = setTimeout(() => {
+                const newMinutes = document.getElementById('daily-minutes').value;
+                if (newMinutes && !isNaN(newMinutes)) {
+                    DAILY_MINUTES = newMinutes;
+                    DAILY_DECREMENT = (DAILY_MINUTES * 60) / (24 * 60 * 60);
+                    localStorage.setItem('timer-daily-minutes', newMinutes);
+                    
+                    // Restart timer with new settings if not in revision mode
+                    if (!isRevisionMode) {
+                        stopRevision();
+                    }
+                }
+            }, 3000);
+        }
+
+        // Add input event listener for daily minutes
+        document.getElementById('daily-minutes').addEventListener('input', debouncedSave);
+
+        // Update loadTimer function
+        function loadTimer() {
+            const savedDailyMinutes = localStorage.getItem('timer-daily-minutes');
+            
+            if (savedDailyMinutes) {
+                DAILY_MINUTES = parseInt(savedDailyMinutes);
+                DAILY_DECREMENT = (DAILY_MINUTES * 60) / (24 * 60 * 60);
+            }
+            
+            const savedTime = localStorage.getItem('timer-value');
+            const lastUpdate = localStorage.getItem('timer-last-update');
+            const savedRevisionMode = localStorage.getItem('timer-revision-mode') === 'true';
+            const savedRevisionStart = localStorage.getItem('timer-revision-start');
+
+            if (savedTime && lastUpdate) {
+                const now = Date.now();
+                const lastUpdateTime = parseInt(lastUpdate);
+                const elapsedSeconds = (now - lastUpdateTime) / 1000;
+
+                if (savedRevisionMode && savedRevisionStart) {
+                    // Calculate time gained during revision
+                    const revisionStartTime = parseInt(savedRevisionStart);
+                    const revisionSeconds = (now - revisionStartTime) / 1000;
+                    timerSeconds = parseFloat(savedTime) + revisionSeconds;
+                    isRevisionMode = true;
+                    startRevision(false); // Don't reset the revision start time
+                } else {
+                    // Calculate time lost during normal mode
+                    timerSeconds = parseFloat(savedTime) - (elapsedSeconds * DAILY_DECREMENT);
+                    isRevisionMode = false;
+                    stopRevision(false); // Don't reset the last update time
+                }
+                
+                updateTimerDisplay();
+                saveTimer();
+            }
+        }
+
+        // Update saveTimer function
+        function saveTimer() {
+            localStorage.setItem('timer-value', timerSeconds.toString());
+            localStorage.setItem('timer-last-update', Date.now().toString());
+            localStorage.setItem('timer-revision-mode', isRevisionMode.toString());
+        }
+
+        // Update stopRevision function
+        function stopRevision(resetLastUpdate = true) {
+            isRevisionMode = false;
+            document.getElementById('revision-btn').disabled = false;
+            document.getElementById('stop-revision-btn').disabled = true;
+
+            if (resetLastUpdate) {
+                localStorage.setItem('timer-last-update', Date.now().toString());
+            }
+            localStorage.removeItem('timer-revision-start');
+
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timerSeconds = timerSeconds - DAILY_DECREMENT;
+                updateTimerDisplay();
+                saveTimer();
+            }, 1000);
+        }
+
+        // Handle page visibility changes
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                // Page is being hidden, save current state
+                saveTimer();
+                clearInterval(timerInterval);
+            } else {
+                // Page is being shown, recalculate elapsed time
+                loadTimer();
+            }
+        });
+
+        // Initialize timer
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTimer();
+        });
+
+        // Update timer display
+        function updateTimerDisplay() {
+            const isNegative = timerSeconds < 0;
+            const absSeconds = Math.abs(timerSeconds);
+            const hours = Math.floor(absSeconds / 3600);
+            const minutes = Math.floor((absSeconds % 3600) / 60);
+            const seconds = Math.floor(absSeconds % 60);
+
+            const timerDisplay = document.querySelector('.timer-display');
+            timerDisplay.classList.toggle('negative', isNegative);
+
+            document.getElementById('timer-hours').textContent = (isNegative ? '-' : '') + hours.toString().padStart(2, '0');
+            document.getElementById('timer-minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('timer-seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        // Start revision mode
+        function startRevision(resetStartTime = true) {
+            isRevisionMode = true;
+            document.getElementById('revision-btn').disabled = true;
+            document.getElementById('stop-revision-btn').disabled = false;
+
+            if (resetStartTime) {
+                localStorage.setItem('timer-revision-start', Date.now().toString());
+            }
+
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timerSeconds += 1; // Increment 1 second per second
+                updateTimerDisplay();
+                saveTimer();
+            }, 1000);
+        }
+
+        // Reset timer function
+        function resetTimer() {
+            timerSeconds = 0;
+            isRevisionMode = false;
+            document.getElementById('revision-btn').disabled = false;
+            document.getElementById('stop-revision-btn').disabled = true;
+            
+            // Clear any existing interval
+            clearInterval(timerInterval);
+            
+            // Start normal timer mode
+            timerInterval = setInterval(() => {
+                timerSeconds = timerSeconds - DAILY_DECREMENT;
+                updateTimerDisplay();
+                saveTimer();
+            }, 1000);
+            
+            // Update display and save state
+            updateTimerDisplay();
+            saveTimer();
+            
+            // Close the config popup
+            hideTimerConfig();
         }
     </script>
 </body>
